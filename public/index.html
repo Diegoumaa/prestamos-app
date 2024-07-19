@@ -15,6 +15,7 @@
       <input type="password" id="register-password" placeholder="Password" required>
       <button type="submit">Register</button>
     </form>
+    <div id="register-message"></div>
 
     <h2>Inicio de Sesión</h2>
     <form id="login-form">
@@ -22,9 +23,20 @@
       <input type="password" id="login-password" placeholder="Password" required>
       <button type="submit">Login</button>
     </form>
+    <div id="login-message"></div>
   </div>
 
   <div id="loans-container" style="display: none;">
+    <h2>Añadir Cliente de Préstamo</h2>
+    <form id="add-loan-client-form">
+      <input type="text" id="client-name" placeholder="Nombre" required>
+      <input type="number" id="client-capital" placeholder="Capital" required>
+      <input type="number" id="client-porcentaje" placeholder="Porcentaje" required>
+      <input type="number" id="client-cuota-mensual" placeholder="Cuota Mensual" required>
+      <button type="submit">Añadir Cliente</button>
+    </form>
+
+    <h2>Lista de Clientes de Préstamos</h2>
     <table>
       <thead>
         <tr>
@@ -56,7 +68,14 @@
       });
 
       const data = await response.json();
-      alert(data.message);
+      const messageDiv = document.getElementById('register-message');
+      if (response.status === 201) {
+        messageDiv.textContent = data.message;
+        messageDiv.style.color = 'green';
+      } else {
+        messageDiv.textContent = data.message;
+        messageDiv.style.color = 'red';
+      }
     }
 
     async function loginUser(event) {
@@ -73,13 +92,17 @@
       });
 
       const data = await response.json();
-      if (data.token) {
+      const messageDiv = document.getElementById('login-message');
+      if (response.status === 200) {
         localStorage.setItem('token', data.token);
+        messageDiv.textContent = data.message;
+        messageDiv.style.color = 'green';
         document.getElementById('auth-container').style.display = 'none';
         document.getElementById('loans-container').style.display = 'block';
         fetchLoans();
       } else {
-        alert(data.message);
+        messageDiv.textContent = data.message;
+        messageDiv.style.color = 'red';
       }
     }
 
@@ -92,10 +115,11 @@
       });
       const loans = await response.json();
       const tableBody = document.getElementById('loans-table-body');
+      tableBody.innerHTML = ''; // Clear the table before adding new data
       loans.forEach(loan => {
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td>${loan.nombre}</td>
+          <td>${loan.name}</td>
           <td>${loan.capital}</td>
           <td>${loan.abonos}</td>
           <td>${loan.porcentaje}</td>
