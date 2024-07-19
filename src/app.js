@@ -1,19 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const loanRoutes = require('./routes/loanRoutes');
+const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
-const authMiddleware = require('./middleware/authMiddleware');
 
 dotenv.config();
 
 const app = express();
 
-// Middlewares
+app.use(cors()); // Usa cors como middleware
 app.use(express.json());
 
 // Routes
-app.use('/api/loans', authMiddleware, loanRoutes);
 app.use('/api/auth', authRoutes);
 
 // MongoDB connection
