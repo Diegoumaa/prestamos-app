@@ -1,17 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors'); // Importa cors
+const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
 
 const app = express();
 
-// Configurar CORS
 app.use(cors({
   origin: 'https://prestamos123.netlify.app', // Permitir solicitudes desde tu frontend en Netlify
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   optionsSuccessStatus: 204
 }));
