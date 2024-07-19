@@ -8,6 +8,7 @@ dotenv.config();
 
 const app = express();
 
+// Configurar CORS
 app.use(cors({
   origin: 'https://prestamos123.netlify.app', // Permitir solicitudes desde tu frontend en Netlify
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
