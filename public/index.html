@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Préstamos</title>
+</head>
+<body>
+  <h1>Administración de Préstamos</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Capital</th>
+        <th>Abonos</th>
+        <th>Porcentaje</th>
+        <th>Cuota Mensual</th>
+      </tr>
+    </thead>
+    <tbody id="loans-table-body">
+      <!-- Datos de préstamos aquí -->
+    </tbody>
+  </table>
+  <script>
+    async function fetchLoans() {
+      const response = await fetch('/api/loans');
+      const loans = await response.json();
+      const tableBody = document.getElementById('loans-table-body');
+      loans.forEach(loan => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${loan.nombre}</td>
+          <td>${loan.capital}</td>
+          <td>${loan.abonos}</td>
+          <td>${loan.porcentaje}</td>
+          <td>${loan.cuotaMensual}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    fetchLoans();
+  </script>
+</body>
+</html>
