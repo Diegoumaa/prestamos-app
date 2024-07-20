@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo 'Construcción completada'"
+    "build": "mkdir -p build && echo 'Construcción completada' > build/index.html"
   },
   "keywords": [],
   "author": "",

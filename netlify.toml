@@ -1,6 +1,6 @@
 [build]
   command = "pip install -r requirements.txt && npm install && npm run build"
-  publish = "build" # Directorio de publicación después del build
+  publish = "build"
 
 [build.environment]
   PYTHON_VERSION = "3.8"
