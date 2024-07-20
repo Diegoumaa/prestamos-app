@@ -1,6 +1,6 @@
 [build]
-  command = "npm install && npm run build"
-  publish = "public" # O la carpeta donde están los archivos que quieres publicar
+  command = "pip install -r requirements.txt && npm install && npm run build"
+  publish = "build" # Directorio de publicación después del build
 
 [build.environment]
-  NODE_VERSION = "14" # Asegúrate de usar una versión compatible de Node.js
+  PYTHON_VERSION = "3.8"
